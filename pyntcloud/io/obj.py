@@ -73,6 +73,8 @@ def read_obj(filename):
             mesh_columns.append("v{}".format(i + 1))
 
     mesh = pd.DataFrame([re.split(r'\D+', x) for x in f], dtype='i4', columns=mesh_columns)
+    for mesh_column in mesh_columns:
+        mesh[mesh_column] = pd.to_numeric(mesh[mesh_column])
     mesh -= 1  # index starts with 1 in obj file
 
     data["mesh"] = mesh
